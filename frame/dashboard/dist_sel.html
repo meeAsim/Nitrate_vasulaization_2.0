@@ -1,0 +1,84 @@
+{% extends 'ink/base.html' %} {% block title %}My Dashboard {% endblock %}
+{%block content %}
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="border p-3 shadow">
+      <h3>{{district}}</h3>
+      <hr/>
+      <form action="/visualKleve" method="POST">
+        {% csrf_token %}
+           
+       <label for="city"><h5>Cities</h5></label>
+  <select id="city" name="city">
+    <option value="nodata">Select a city:</option>
+    {% for name in list %}
+    
+    <option value="{{ name }}"> {{ name }} </option>
+     {% endfor %}
+  </select>
+  <input type="submit">
+</form>   
+      </form>
+    </div>
+  </div>
+  <div class="col-md-8">
+  
+    <div class="image-fluid" style="border: 1px solid black;">
+    <img src="https://imgs.search.brave.com/EqVQpJuhGoTCgqbhGra2SFjO177CajrxQJPDx8iZVDQ/rs:fit:266:400:1/g:ce/aHR0cDovL3d3dy5z/dGFkdHJhbmcuZGUv/bnJ3L3JlZ2llcnVu/Z3NiZXppcmstZHVl/c3NlbGRvcmYva3Jl/aXMta2xldmUucG5n" class="img-fluid rounded mx-auto d-block" alt="Kries-Kleve">
+    </div>
+    <p style="text-align: center;"><span style="font-weight: 700;"> image source:</span> stadtrang</p>
+  
+  </div>
+<hr>
+<br>
+  <div class="row justify-content-cente">
+
+      <br>
+      <div class="table-responsive">
+        <h3 class="text-center">
+                Key Statistical Values 
+              </h3>
+              <hr>
+        <table class="table table-striped table-secondary">
+              <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">messergebnis_c</th>
+      <th scope="col">filterlaenge_cm</th>
+      <th scope="col">ausbaudurchmesser_mm</th>
+      <th scope="col">historischer_ruhe_wsp</th>
+      <th scope="col">oberkante_filter_cm</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if data %} {% for i in data %}
+    <tr>
+      <th scope="row">{{i.index}}</th>
+      <td>{{i.messergebnis_c}}</td>
+      <td>{{i.filterlaenge_cm}}</td>
+      <td>{{i.ausbaudurchmesser_mm}}</td>
+      <td>{{i.historischer_ruhe_wsp}}</td>
+      <td>{{i.oberkante_filter_cm}}</td>
+      
+    </tr>
+    {% endfor %} {% endif %}
+  </tbody>
+        </table>
+      </div>
+      <br> 
+     
+    </div>
+  
+  
+</div>
+</div>
+<br> <br>
+ 
+<br> <br>
+
+
+
+  {% include 'ink/footer.html' %}
+
+{% endblock %}

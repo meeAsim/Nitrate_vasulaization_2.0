@@ -1,0 +1,82 @@
+{% extends 'ink/base.html' %} {% block title %}My Dashboard {% endblock %}
+{%block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="border p-3 shadow text-center">
+      <h3>Nitrate</h3>
+       
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row-reverse">
+          <li class="nav-item dropdown" style="background-color:#C6F3EE; padding: 0.5rem; border-radius: 13%; color: rgb(26, 25, 25); font-weight: 700;">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+            
+              Select District
+            </a>
+            <ul class="dropdown-menu">
+              <form action="/kleve" method="Post">
+                {% csrf_token %}
+              <li>
+                <input type="text" name="dist" hidden>
+                <button class="btn" type="submit" name="dist" value="Kleve">Kleve</button>
+              </li>
+              
+              </form>
+              <li><hr class="dropdown-divider" /></li>
+              <form action="/kleve" method="Post">
+               {% csrf_token %}
+               <li>
+                <input type="text" name="dist"  hidden>
+                <button class="btn" type="submit" name="dist" value="Wesel">Wesel</button>
+              </li>
+              </form>
+            </ul>
+          </li>
+        </ul>
+      
+    </div>
+  </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Information</h3>
+      <div class="img-fluid">
+ <img src="https://imgs.search.brave.com/K_vKeG2hXUAG4cQEZTn5yNQK4eNZiww9HsCjzgA1JnI/rs:fit:560:315:1/g:ce/aHR0cHM6Ly9jZG4y/Lmh1YnNwb3QubmV0/L2h1YmZzLzM4MzE1/MzQvbml0cmF0ZXMu/cG5n" class="img-fluid rounded mx-auto d-block" alt="cover image">
+      </div>
+     <br>
+      <h6> Thesis Project by Bikram Rai </h5>
+    </div>
+    <div class="col-md-9 justify-content-center">
+     <h3>About the project</h3>
+     
+    <div class="text-justify">
+      <p style="text-align: justify;">  This is a thesis based project which shows the visual analysis of dataframe on nitrares collecetd in the districts of Kleve and Wesel. This app is build with django framework of python and pandas along with pandasql been used. Bootstrap has been used to create frontend and Chart js to create charts.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)</p>
+    </div>
+
+  
+  </div>
+   
+  </div>
+ <div class="row">
+  <script>
+    
+  </script>
+ </div>
+</div>
+<br>
+
+{{ df }}
+<br>
+<div style="position: absolute; bottom: 0; width: 100%;">
+  {% include 'ink/footer.html' %}
+</div>
+
+{% endblock %}
+
+
+ 

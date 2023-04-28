@@ -1,0 +1,255 @@
+{% extends 'ink/base.html' %} {% block title %}My Dashboard {% endblock %}
+{%block content %}
+<div class="row">
+  <div class="border p-3 shadow" style="margin-bottom: 3%;">
+    <h3 class="text-center">{{city}}</h3>
+  </div>
+  <br />
+  
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="float: right;">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Overall</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="second-tab" data-bs-toggle="tab" data-bs-target="#second" type="button" role="tab" aria-controls="second" aria-selected="false">1984 to 1994</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="third-tab" data-bs-toggle="tab" data-bs-target="#third" type="button" role="tab" aria-controls="third" aria-selected="false">1995 to 2005</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="forth-tab" data-bs-toggle="tab" data-bs-target="#forth" type="button" role="tab" aria-controls="forth" aria-selected="false">2006 and above
+      
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="col-md-12">
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+        <script>
+          const ctx = document.getElementById("myChart");
+    
+          new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: [{% for data in cdata %} '{{ data }}', {% endfor %}],
+              datasets: [
+                {
+                  label: "# per mg/l",
+                  data: [{% for data in value %} '{{ data }}', {% endfor %}],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        </script>
+      </div>
+    
+    
+    </div>
+  
+    <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-tab"><div class="col-md-12">
+      <div>
+        <canvas id="myChart2"></canvas>
+      </div>
+  
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+      <script>
+        const ctx1 = document.getElementById("myChart2");
+  
+        new Chart(ctx1, {
+          type: "line",
+          data: {
+            labels: [{% for data in c1data %} '{{ data }}', {% endfor %}],
+            datasets: [
+              {
+                label: "# per mg/l",
+                data: [{% for data in value %} '{{ data }}', {% endfor %}],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      </script>
+    </div>
+    </div>
+    <div class="tab-pane fade" id="third" role="tabpanel" aria-labelledby="third-tab">
+      <div>
+        <canvas id="myChart3"></canvas>
+      </div>
+  
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+      <script>
+        const ctx2 = document.getElementById("myChart3");
+  
+        new Chart(ctx2, {
+          type: "line",
+          data: {
+            labels: [{% for data in c2data %} '{{ data }}', {% endfor %}],
+            datasets: [
+              {
+                label: "# per mg/l",
+                data: [{% for data in value %} '{{ data }}', {% endfor %}],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      </script>
+    </div>
+    
+    <div class="tab-pane fade" id="forth" role="tabpanel" aria-labelledby="forth-tab">
+      <div>
+        <canvas id="myChart4"></canvas>
+      </div>
+  
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+      <script>
+        const ctx3 = document.getElementById("myChart4");
+  
+        new Chart(ctx3, {
+          type: "line",
+          data: {
+            labels: [{% for data in c3data %} '{{ data }}', {% endfor %}],
+            datasets: [
+              {
+                label: "# per mg/l",
+                data: [{% for data in value06 %} '{{ data }}', {% endfor %}],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      </script>
+    </div>
+    
+  </div>
+  <hr />
+ 
+</div>
+<br style="margin-top: 5%" />
+<div class="row">
+  <!--code for table-->
+  <div class="col-md-6">
+    <div class="border p-3 shadow">
+      <h3>Table showing key values</h3>
+      <!-- Trigger/Open The Modal -->
+      <button class="btn btn-danger float-end" id="myBtn">Show Table</button>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close" style="margin-left: 90%; color: red"
+            >&times;</span
+          >
+
+          <div class="border p-3 shadow">
+            <div class="row justify-content-center">
+              <h3 class="text-center">
+                Tables showing the result of samples tested in variouss time
+                period
+              </h3>
+              <div class="d-flex">
+                <ul class="list-group list-group-horizontal">
+                  <li class="list-group-item" style="background-color: green">
+                    Drinkable
+                  </li>
+                  <li class="list-group-item" style="background-color: red">
+                    Undrinkable
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-md-9" id= 'mytable' style="margin-top: 3%;">
+                <table
+                  id="example"
+                  class="table table-striped" style="width:100%"
+                >
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>City Name</th>
+
+                      <th>Value</th>
+                      <th>Masseinheit</th>
+                      <th>Result</th>
+                      <th>Messergebnis_hinweis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if tab_data %} {% for i in tab_data %}
+                    <tr>
+                      <td>{{i.year}}</td>
+
+                      <td>{{i.name}}</td>
+
+                      <td>{{i.messergebnis_c}}</td>
+                      <td>mg/l</td>
+                      <td id="result"></td>
+                      <td>{{i.messergebnis_hinweis}}</td>
+                    </tr>
+                    {% endfor %} {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="border p-3 shadow">
+      <h3>Geomap</h3>
+      <a class="align-item-center" target="_blank" href="map">
+        <button class="btn btn-danger float-end">Show Map</button>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+<br />
+
+  {% include 'ink/footer.html' %}
+
+
+
+{% endblock %}
